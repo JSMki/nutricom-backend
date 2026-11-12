@@ -1,4 +1,4 @@
-package com.example.nutricom.controller;
+package com.example.nutricom.controllers;
 
 import com.example.nutricom.dto.CreateUserRequest;
 import com.example.nutricom.models.User;
