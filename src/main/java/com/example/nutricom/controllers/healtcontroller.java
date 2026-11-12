@@ -1,4 +1,4 @@
-package com.example.nutricom.controller;
+package com.example.nutricom.controllers;
 
 
 import org.springframework.jdbc.core.JdbcTemplate;
