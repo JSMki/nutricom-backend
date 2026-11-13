@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/requests")
@@ -29,41 +30,48 @@ public class RequestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Request> findById(@PathVariable int id) {
+    public ResponseEntity<?> findById(@PathVariable int id) {
         return service.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .<ResponseEntity<?>>map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(404)
+                        .body(Map.of("message", "Request " + id + " not found")));
     }
 
     @PostMapping
-    public ResponseEntity<Request> create(@RequestBody CreateRequestRequest dto) {
+    public ResponseEntity<?> create(@RequestBody CreateRequestRequest dto) {
         if (dto.motivo() == null || dto.motivo().isBlank()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest()
+                    .body(Map.of("message", "The field 'motivo' is required"));
         }
         return ResponseEntity.status(201).body(service.create(dto));
     }
 
     @PostMapping("/serve")
-    public ResponseEntity<Request> serveNext() {
+    public ResponseEntity<?> serveNext() {
         return service.serveNext()
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .<ResponseEntity<?>>map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(404)
+                        .body(Map.of("message", "There are no pending requests")));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Request> update(@PathVariable int id, @RequestBody CreateRequestRequest dto) {
+    public ResponseEntity<?> update(@PathVariable int id, @RequestBody CreateRequestRequest dto) {
         if (dto.motivo() == null || dto.motivo().isBlank()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest()
+                    .body(Map.of("message", "The field 'motivo' is required"));
         }
         return service.update(id, dto)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .<ResponseEntity<?>>map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(404)
+                        .body(Map.of("message", "Request " + id + " not found")));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable int id) {
-        return service.delete(id)
-                ? ResponseEntity.noContent().build()
-                : ResponseEntity.notFound().build();
+    public ResponseEntity<?> delete(@PathVariable int id) {
+        if (service.delete(id)) {
+            return ResponseEntity.ok(Map.of("message", "Request " + id + " was deleted"));
+        }
+        return ResponseEntity.status(404)
+                .body(Map.of("message", "Request " + id + " not found"));
     }
 }
