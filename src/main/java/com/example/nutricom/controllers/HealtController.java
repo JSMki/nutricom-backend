@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 
     @RestController
-    public class healtcontroller {
+    public class HealtController {
 
         private final JdbcTemplate jdbcTemplate;
 
-        public healtcontroller(JdbcTemplate jdbcTemplate) {
+        public HealtController(JdbcTemplate jdbcTemplate) {
             this.jdbcTemplate = jdbcTemplate;
         }
 
