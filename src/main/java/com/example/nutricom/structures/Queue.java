@@ -3,6 +3,7 @@ package com.example.nutricom.structures;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class Queue<T> {
     private Node<T> front;
@@ -55,5 +56,35 @@ public class Queue<T> {
             current = current.getNext();
         }
         return list;
+    }
+
+    public boolean removeIf(Predicate<T> condition) {
+        if (isEmpty()) return false;
+
+        if (condition.test(front.getData())) {
+            front = front.getNext();
+            if (front == null) {
+                rear = null;
+            }
+            size--;
+            return true;
+        }
+
+        Node<T> previous = front;
+        Node<T> current = front.getNext();
+
+        while (current != null) {
+            if (condition.test(current.getData())) {
+                previous.setNext(current.getNext());
+                if (current == rear) {
+                    rear = previous;
+                }
+                size--;
+                return true;
+            }
+            previous = current;
+            current = current.getNext();
+        }
+        return false;
     }
 }

@@ -27,4 +27,8 @@ public class Request {
     public String getPrioridad() { return prioridad; }
     public String getEstado() { return estado; }
     public void setEstado(String estado) { this.estado = estado; }
+    public void setFechaSolicitud(LocalDate fechaSolicitud) { this.fechaSolicitud = fechaSolicitud; }
+    public void setMotivo(String motivo) { this.motivo = motivo; }
+    public void setNumeroIntegrantes(int numeroIntegrantes) { this.numeroIntegrantes = numeroIntegrantes; }
+    public void setPrioridad(String prioridad) { this.prioridad = prioridad; }
 }

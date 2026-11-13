@@ -49,4 +49,21 @@ public class RequestController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Request> update(@PathVariable int id, @RequestBody CreateRequestRequest dto) {
+        if (dto.motivo() == null || dto.motivo().isBlank()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return service.update(id, dto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable int id) {
+        return service.delete(id)
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.notFound().build();
+    }
 }

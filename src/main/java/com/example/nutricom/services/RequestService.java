@@ -64,4 +64,22 @@ public class RequestService {
         });
         return next;
     }
+
+    // Updates the data of an existing request (pending or served)
+    public Optional<Request> update(int id, CreateRequestRequest dto) {
+        Optional<Request> found = findById(id);
+        found.ifPresent(r -> {
+            if (dto.fechaSolicitud() != null) r.setFechaSolicitud(dto.fechaSolicitud());
+            r.setMotivo(dto.motivo());
+            r.setNumeroIntegrantes(dto.numeroIntegrantes());
+            if (dto.prioridad() != null && !dto.prioridad().isBlank()) r.setPrioridad(dto.prioridad());
+        });
+        return found;
+    }
+
+    // Removes the request from the queue or from the history
+    public boolean delete(int id) {
+        return pending.removeIf(r -> r.getIdSolicitud() == id)
+                || served.removeIf(r -> r.getIdSolicitud() == id);
+    }
 }
