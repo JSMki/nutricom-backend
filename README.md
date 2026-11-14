@@ -1,3 +1,4 @@
+
 # NutriComunidad
 
 Plataforma que conecta mercados, comercios, productores locales, organizaciones sociales y familias para aprovechar alimentos aptos para consumo y promover una alimentación saludable.
@@ -7,8 +8,7 @@ Este repositorio contiene el **backend (API REST)** desarrollado con Spring Boot
 ## Integrantes
 
 - Jaime Iván Sánchez Romero - sanchezrjaimei@gmail.com
-- Carolina Reyes Pitones - ___
-
+- Carolina Reyes Pitones - reypit16@gmail.comS
 ## Tecnologías
 
 - Java 17
@@ -16,28 +16,25 @@ Este repositorio contiene el **backend (API REST)** desarrollado con Spring Boot
 - Gradle
 - PostgreSQL en Neon (comprobación de conexión)
 - Postman (para probar los endpoints)
-
 ## Requisitos
 
 - JDK 17
 - Una base de datos PostgreSQL en Neon y sus datos de conexión
 - Postman
-
 ## Configuración
 
 1. Clona el repositorio.
 2. Copia `.env.example` a `.env`.
 3. En Neon, copia los datos de conexión de tu proyecto y configúralos en `.env`. Reemplaza los valores de ejemplo por los tuyos. La URL JDBC debe incluir `sslmode=require`:
+```properties
+DB_URL=jdbc:postgresql://<host-neon>/<base-de-datos>?sslmode=require
+DB_USER=<usuario-de-neon>
+DB_PASSWORD=<contraseña-de-neon>
+JWT_SECRET=escribe-una-clave-larga-de-al-menos-32-caracteres
+FRONTEND_URL=
+```
 
-   ```properties
-   DB_URL=jdbc:postgresql://<host-neon>/<base-de-datos>?sslmode=require
-   DB_USER=<usuario-de-neon>
-   DB_PASSWORD=<contraseña-de-neon>
-   JWT_SECRET=escribe-una-clave-larga-de-al-menos-32-caracteres
-   FRONTEND_URL=
-   ```
-
-   `FRONTEND_URL` es opcional. El archivo `.env` está ignorado por Git; no subas credenciales reales al repositorio. No necesitas instalar PostgreSQL localmente si utilizas la instancia de Neon.
+`FRONTEND_URL` es opcional. El archivo `.env` está ignorado por Git; no subas credenciales reales al repositorio. No necesitas instalar PostgreSQL localmente si utilizas la instancia de Neon.
 
 ## Cómo ejecutar
 
@@ -64,9 +61,15 @@ Para cada endpoint:
 3. Para enviar un body, abre **Body → raw** y selecciona **JSON** en el selector de formato.
 4. Postman debe enviar el encabezado `Content-Type: application/json` (normalmente lo agrega al seleccionar JSON).
 5. Copia el ejemplo JSON indicado para ese endpoint. Las rutas `GET` y `DELETE`, así como `POST /api/requests/serve` y `POST /api/organizaciones/validar`, no requieren body.
+   No se requiere token para los endpoints documentados aquí.
 
-No se requiere token para los endpoints documentados aquí. No se incluye una colección de Postman en este repositorio; puedes crear las peticiones manualmente siguiendo los ejemplos.
+### Colección de Postman
 
+El repositorio incluye la colección lista para importar en `postman/NutriCom.postman_collection.json` (formato v2.1), con una carpeta por módulo.
+
+1. En Postman, selecciona **Import** y elige el archivo de la colección.
+2. La colección usa la variable `Url`, que ya tiene el valor `http://localhost:8080/api`. Si tu API corre en otro puerto, cámbiala en la pestaña **Variables** de la colección.
+3. Ejecuta la aplicación y envía las peticiones de cada carpeta.
 ### Comprobar la API y la conexión a Neon
 
 | Método | Ruta | Respuesta esperada |
@@ -172,6 +175,60 @@ Ejemplo para `POST /api/donations` o `PUT /api/donations/{id}`:
 
 La fecha debe usar el formato `AAAA-MM-DD`; puede omitirse al crear. `cantidadTotal`, `idComercio` e `idOrganizacion` deben ser mayores que cero.
 
+### Comercios — `/api/commerces`
+
+| Método | Ruta | Body | Respuesta |
+|---|---|---|---|
+| `GET` | `/api/commerces` | — | `200` con la lista |
+| `GET` | `/api/commerces/{id}` | — | `200` con el comercio o `404` |
+| `GET` | `/api/commerces/{id}/donations` | — | `200` con las donaciones del comercio o `404` si el comercio no existe |
+| `POST` | `/api/commerces` | JSON de creación | `201` con el comercio creado o `400` por datos inválidos |
+| `PUT` | `/api/commerces/{id}` | JSON con los datos actualizados | `200` con el comercio, `400` por datos inválidos o `404` |
+| `DELETE` | `/api/commerces/{id}` | — | `200` con mensaje o `404` si no existe |
+
+Ejemplo para `POST /api/commerces` o `PUT /api/commerces/{id}`:
+
+```json
+{
+  "nombreComercio": "Tienda Lupita",
+  "razonSocial": "Lupita S.A. de C.V.",
+  "tipoComercio": "Tienda de abarrotes",
+  "telefonoComercio": "2221112233",
+  "correoComercio": "lupita@correo.com",
+  "calleComercio": "Allende",
+  "numeroComercio": "9",
+  "idColonia": 1,
+  "idUsuario": 3
+}
+```
+
+`nombreComercio` y `tipoComercio` son obligatorios y `telefonoComercio` debe tener exactamente 10 dígitos.
+
+### Alimentos — `/api/foods`
+
+| Método | Ruta | Body | Respuesta |
+|---|---|---|---|
+| `GET` | `/api/foods` | — | `200` con la lista |
+| `GET` | `/api/foods/{id}` | — | `200` con el alimento o `404` |
+| `POST` | `/api/foods` | JSON de creación | `201`; `nombreAlimento` es obligatorio |
+| `PUT` | `/api/foods/{id}` | JSON con los datos actualizados | `200` con el alimento, `400` o `404` |
+| `DELETE` | `/api/foods/{id}` | — | `200` con mensaje o `404` si no existe |
+
+Ejemplo para `POST /api/foods` o `PUT /api/foods/{id}`:
+
+```json
+{
+  "nombreAlimento": "Arroz",
+  "descripcion": "Cereal en grano",
+  "unidadMedida": "kg",
+  "caloriasPorPorcion": 205,
+  "proteinas": 4.3,
+  "carbohidratos": 45,
+  "grasas": 0.4,
+  "estado": "activo"
+}
+```
+
 ## Flujo de prueba sugerido
 
 **Solicitudes (cola de atención)**
@@ -181,20 +238,20 @@ La fecha debe usar el formato `AAAA-MM-DD`; puede omitirse al crear. `cantidadTo
 3. Vuelve a ejecutar `GET /api/requests`: la solicitud atendida ya no está en la lista de pendientes.
 4. Ejecuta `GET /api/requests/served` para verla en el historial.
 5. Repite la atención hasta vaciar la cola; la siguiente petición responde `404`.
-
-**Organizaciones (cola de validación)**
+   **Organizaciones (cola de validación)**
 
 1. Ejecuta `GET /api/organizaciones/pendientes` para ver las solicitudes de registro pendientes.
 2. Ejecuta `POST /api/organizaciones/validar` sin body para validar la primera.
 3. Ejecuta `GET /api/organizaciones` para consultar las organizaciones activas.
+   **Comercios y donaciones (módulos relacionados)**
 
-**Datos en memoria**
+1. Ejecuta `GET /api/commerces` para ver los tres comercios de ejemplo.
+2. Ejecuta `GET /api/commerces/1/donations` para ver las donaciones del Mercado Hidalgo.
+3. Registra una donación con `POST /api/donations` usando `"idComercio": 1`.
+4. Vuelve a ejecutar `GET /api/commerces/1/donations`: la nueva donación aparece en la lista.
+   **Datos en memoria**
 
 Los servicios cargan registros de ejemplo al iniciar. Los datos creados, modificados, atendidos o eliminados en una ejecución no se conservan al reiniciar la aplicación.
-
-## Módulos aún no disponibles como endpoints
-
-Existe un modelo y servicio para alimentos, pero `FoodController` todavía no implementa rutas REST. Por ello, las rutas `/api/foods` mencionadas en planes o pruebas anteriores aún no se pueden probar. Tampoco hay actualmente un controlador o endpoint REST para comercios.
 
 ## Estructuras de datos
 
@@ -202,7 +259,7 @@ Las estructuras se encuentran en `src/main/java/com/example/nutricom/structures/
 
 | Estructura | Uso |
 |---|---|
-| `SinglyLinkedList` | Usuarios, organizaciones activas, alimentos, donaciones e historial de solicitudes |
+| `SinglyLinkedList` | Usuarios, organizaciones activas, alimentos, donaciones, comercios e historial de solicitudes |
 | `Queue` | Solicitudes pendientes y organizaciones que esperan validación |
 
 ## Estructura del proyecto
@@ -215,6 +272,8 @@ src/main/java/com/example/nutricom/
 ├── dto/           # datos recibidos en los bodies JSON
 └── structures/    # Node, SinglyLinkedList y Queue
 ```
+
+La colección de Postman está en `postman/NutriCom.postman_collection.json`.
 
 ## Convenciones de trabajo
 
