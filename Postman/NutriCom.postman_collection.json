@@ -1,0 +1,901 @@
+{
+  "info": {
+    "_postman_id": "2fb0f2e8-c971-4a2b-ba04-14677f6428b9",
+    "name": "NutriCom",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "59185375"
+  },
+  "item": [
+    {
+      "name": "HealthController",
+      "item": [
+        {
+          "name": "health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/health",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "healthdb",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/health/db",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "health",
+                "db"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "lista usuarios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/usuarios",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "usuarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "busca por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/usuarios/3",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "usuarios",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear usuario",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nombreUsuario\": \"maria\",\r\n  \"correo\": \"maria@example.com\",\r\n  \"contrasenaHash\": \"hash-de-prueba\",\r\n  \"telefono\": \"555-1234\",\r\n  \"estado\": \"activo\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{Url}}/usuarios",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "usuarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete user",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/usuarios/1",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "usuarios",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Request",
+      "item": [
+        {
+          "name": "lista solicitudes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/requests",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "requests"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "lista solis atendidas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/requests/served",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "requests",
+                "served"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "buscar solicitud",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/requests/2",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "requests",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "crear solicitud",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"fechaSolicitud\": \"2026-11-13\",\r\n  \"motivo\": \"Despensa para familia de 7 integrantes\",\r\n  \"numeroIntegrantes\": 7,\r\n  \"prioridad\": \"alta\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{Url}}/requests",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "requests"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "atiende solicitud",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/requests/serve",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "requests",
+                "serve"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "modificacion solicitud",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"fechaSolicitud\": \"2026-11-13\",\r\n  \"motivo\": \"Apoyo con despensa para una familia\",\r\n  \"numeroIntegrantes\": 6,\r\n  \"prioridad\": \"alta\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{Url}}/requests/3",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "requests",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "eliminar solicitud",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/requests/1",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "requests",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Organization",
+      "item": [
+        {
+          "name": "lista organizaciones activas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/organizaciones",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "organizaciones"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "buscar organización",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/organizaciones/2",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "organizaciones",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "buscar organización inexistente (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/organizaciones/99",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "organizaciones",
+                "99"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "lista organizaciones pendientes (cola)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/organizaciones/pendientes",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "organizaciones",
+                "pendientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "registrar organización (entra a la cola)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{Url}}/organizaciones",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "organizaciones"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombreOrg\": \"Despensa Solidaria\",\n  \"tipoOrg\": \"Asociación civil\",\n  \"responsable\": \"Ana Gómez\",\n  \"telefonoOrg\": \"2229990011\",\n  \"correoOrg\": \"despensa@solidaria.org\",\n  \"calleOrg\": \"Allende\",\n  \"numeroOrg\": \"9\",\n  \"idColonia\": 1,\n  \"idUsuario\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "validar siguiente organización (sale de la cola)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/organizaciones/validar",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "organizaciones",
+                "validar"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Food",
+      "item": [
+        {
+          "name": "listado alimentos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/foods",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "foods"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "buscar alimento",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/foods/1",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "foods",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "crear alimento",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nombreAlimento\": \"Arroz\",\r\n  \"descripcion\": \"Cereal en grano\",\r\n  \"unidadMedida\": \"kg\",\r\n  \"caloriasPorPorcion\": 205,\r\n  \"proteinas\": 4.3,\r\n  \"carbohidratos\": 45,\r\n  \"grasas\": 0.4,\r\n  \"estado\": \"activo\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{Url}}/foods",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "foods"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar alimento",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nombreAlimento\": \"Arroz\",\r\n  \"descripcion\": \"Cereal en grano\",\r\n  \"unidadMedida\": \"kg\",\r\n  \"caloriasPorPorcion\": 205,\r\n  \"proteinas\": 4.3,\r\n  \"carbohidratos\": 45,\r\n  \"grasas\": 0.4,\r\n  \"estado\": \"activo\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{Url}}/foods/3",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "foods",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "eliminar alimento",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/foods/4",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "foods",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Donation",
+      "item": [
+        {
+          "name": "lista donaciones",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/donations",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "donations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "buscar donación",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/donations/2",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "donations",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "buscar donación inexistente (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/donations/99",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "donations",
+                "99"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "donaciones de una organización",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/donations/organization/1",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "donations",
+                "organization",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "crear donación",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{Url}}/donations",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "donations"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fechaDonacion\": \"2026-11-14\",\n  \"cantidadTotal\": 15,\n  \"estado\": \"pendiente\",\n  \"observaciones\": \"Tortillas y jitomate\",\n  \"idComercio\": 1,\n  \"idOrganizacion\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "crear donación inválida (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{Url}}/donations",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "donations"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fechaDonacion\": \"2026-11-14\",\n  \"cantidadTotal\": 0,\n  \"estado\": \"pendiente\",\n  \"observaciones\": \"Tortillas y jitomate\",\n  \"idComercio\": 1,\n  \"idOrganizacion\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "actualizar donación",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{Url}}/donations/4",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "donations",
+                "4"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fechaDonacion\": \"2026-11-14\",\n  \"cantidadTotal\": 15,\n  \"estado\": \"entregada\",\n  \"observaciones\": \"Tortillas y jitomate\",\n  \"idComercio\": 1,\n  \"idOrganizacion\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "eliminar donación",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/donations/4",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "donations",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Commerce",
+      "item": [
+        {
+          "name": "lista comercios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/commerces",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "commerces"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "buscar comercio",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/commerces/2",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "commerces",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "buscar comercio inexistente (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/commerces/99",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "commerces",
+                "99"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "donaciones de un comercio",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/commerces/1/donations",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "commerces",
+                "1",
+                "donations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "crear comercio",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{Url}}/commerces",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "commerces"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombreComercio\": \"Tienda Lupita\",\n  \"razonSocial\": \"Lupita S.A. de C.V.\",\n  \"tipoComercio\": \"Tienda de abarrotes\",\n  \"telefonoComercio\": \"2221112233\",\n  \"correoComercio\": \"lupita@correo.com\",\n  \"calleComercio\": \"Allende\",\n  \"numeroComercio\": \"9\",\n  \"idColonia\": 1,\n  \"idUsuario\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "crear comercio inválido (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{Url}}/commerces",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "commerces"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombreComercio\": \"Tienda Lupita\",\n  \"razonSocial\": \"Lupita S.A. de C.V.\",\n  \"tipoComercio\": \"Tienda de abarrotes\",\n  \"telefonoComercio\": \"123\",\n  \"correoComercio\": \"lupita@correo.com\",\n  \"calleComercio\": \"Allende\",\n  \"numeroComercio\": \"9\",\n  \"idColonia\": 1,\n  \"idUsuario\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "actualizar comercio",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{Url}}/commerces/4",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "commerces",
+                "4"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombreComercio\": \"Tienda Lupita\",\n  \"razonSocial\": \"Lupita S.A. de C.V.\",\n  \"tipoComercio\": \"Tienda de abarrotes\",\n  \"telefonoComercio\": \"2224445566\",\n  \"correoComercio\": \"lupita@correo.com\",\n  \"calleComercio\": \"Allende\",\n  \"numeroComercio\": \"9\",\n  \"idColonia\": 1,\n  \"idUsuario\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "eliminar comercio",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{Url}}/commerces/4",
+              "host": [
+                "{{Url}}"
+              ],
+              "path": [
+                "commerces",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "Url",
+      "value": "http://localhost:8080/api"
+    }
+  ]
+}
