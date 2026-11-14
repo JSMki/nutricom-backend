@@ -39,6 +39,14 @@ public class DonationService {
                 .toList();
     }
 
+    // Donaciones que hizo un comercio
+    public List<Donations> findByCommerce(int idComercio) {
+        return donations.toList().stream()
+                .filter(d -> d.getIdComercio() == idComercio)
+                .toList();
+    }
+
+
     public Donations create(CreateDonationRequest dto) {
         Donations donation = new Donations(
                 nextId++,
