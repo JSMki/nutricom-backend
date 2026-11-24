@@ -2,6 +2,8 @@ package com.example.nutricom.controllers;
 
 import com.example.nutricom.dto.CreateDonationRequest;
 import com.example.nutricom.models.Donations;
+import com.example.nutricom.security.RequiereRol;
+import com.example.nutricom.security.Roles;
 import com.example.nutricom.services.DonationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +22,13 @@ public class DonationController {
     }
 
     @GetMapping
+    @RequiereRol({Roles.ADMIN, Roles.COMERCIO, Roles.ORGANIZACION})
     public List<Donations> findAll() {
         return service.findAll();
     }
 
     @GetMapping("/{id}")
+    @RequiereRol({Roles.ADMIN, Roles.COMERCIO, Roles.ORGANIZACION})
     public ResponseEntity<?> findById(@PathVariable int id) {
         return service.findById(id)
                 .<ResponseEntity<?>>map(ResponseEntity::ok)
@@ -33,11 +37,13 @@ public class DonationController {
     }
 
     @GetMapping("/organization/{idOrganizacion}")
+    @RequiereRol({Roles.ADMIN, Roles.COMERCIO, Roles.ORGANIZACION})
     public List<Donations> findByOrganization(@PathVariable int idOrganizacion) {
         return service.findByOrganization(idOrganizacion);
     }
 
     @PostMapping
+    @RequiereRol({Roles.ADMIN, Roles.COMERCIO})
     public ResponseEntity<?> create(@RequestBody CreateDonationRequest dto) {
         String error = validate(dto);
         if (error != null) {
@@ -47,6 +53,7 @@ public class DonationController {
     }
 
     @PutMapping("/{id}")
+    @RequiereRol({Roles.ADMIN, Roles.COMERCIO, Roles.ORGANIZACION})
     public ResponseEntity<?> update(@PathVariable int id, @RequestBody CreateDonationRequest dto) {
         String error = validate(dto);
         if (error != null) {
@@ -59,6 +66,7 @@ public class DonationController {
     }
 
     @DeleteMapping("/{id}")
+    @RequiereRol({Roles.ADMIN, Roles.COMERCIO})
     public ResponseEntity<?> delete(@PathVariable int id) {
         if (service.delete(id)) {
             return ResponseEntity.ok(Map.of("message", "Donation " + id + " was deleted"));
