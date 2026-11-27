@@ -2,6 +2,8 @@ package com.example.nutricom.controllers;
 
 import com.example.nutricom.dto.CreateRequestRequest;
 import com.example.nutricom.models.Request;
+import com.example.nutricom.security.RequiereRol;
+import com.example.nutricom.security.Roles;
 import com.example.nutricom.services.RequestService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,16 +22,19 @@ public class RequestController {
     }
 
     @GetMapping
+    @RequiereRol({Roles.ADMIN, Roles.ORGANIZACION})
     public List<Request> listPending() {
         return service.listPending();
     }
 
     @GetMapping("/served")
+    @RequiereRol({Roles.ADMIN, Roles.ORGANIZACION})
     public List<Request> listServed() {
         return service.listServed();
     }
 
     @GetMapping("/{id}")
+    @RequiereRol({Roles.ADMIN, Roles.ORGANIZACION})
     public ResponseEntity<?> findById(@PathVariable int id) {
         return service.findById(id)
                 .<ResponseEntity<?>>map(ResponseEntity::ok)
@@ -38,6 +43,7 @@ public class RequestController {
     }
 
     @PostMapping
+    @RequiereRol({Roles.ADMIN, Roles.BENEFICIARIO})
     public ResponseEntity<?> create(@RequestBody CreateRequestRequest dto) {
         if (dto.motivo() == null || dto.motivo().isBlank()) {
             return ResponseEntity.badRequest()
@@ -47,6 +53,7 @@ public class RequestController {
     }
 
     @PostMapping("/serve")
+    @RequiereRol({Roles.ADMIN, Roles.ORGANIZACION})
     public ResponseEntity<?> serveNext() {
         return service.serveNext()
                 .<ResponseEntity<?>>map(ResponseEntity::ok)
@@ -55,6 +62,7 @@ public class RequestController {
     }
 
     @PutMapping("/{id}")
+    @RequiereRol(Roles.ADMIN)
     public ResponseEntity<?> update(@PathVariable int id, @RequestBody CreateRequestRequest dto) {
         if (dto.motivo() == null || dto.motivo().isBlank()) {
             return ResponseEntity.badRequest()
@@ -67,6 +75,7 @@ public class RequestController {
     }
 
     @DeleteMapping("/{id}")
+    @RequiereRol(Roles.ADMIN)
     public ResponseEntity<?> delete(@PathVariable int id) {
         if (service.delete(id)) {
             return ResponseEntity.ok(Map.of("message", "Request " + id + " was deleted"));
